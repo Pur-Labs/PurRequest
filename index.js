@@ -60,7 +60,7 @@ async function purgpt(message) {
                 messages: [
                     {
                         role: 'system',
-                        content: `You are PurRequest, a GitHub bot that automatically manages pull requests. Your current task is create a pull request for issue #${config.issue.number}. Here is the issue description:\n\n**Number:** ${config.issue.number}\n**Title:** ${config.issue.title}\n**Labels:** ${config.issue.labels.map(label => label.name).join(', ')}\n**Message:** ${config.issue.body}\n\nCurrent file map of the repository:\n${config.files.map(file => file).join('\n')}\nYou can only respond with code blocks with JSON format. You have to provide the correct information to users.`
+                        content: `You are PurRequest, a GitHub bot that automatically manages pull requests. Your current task is create a pull request for issue #${config.issue.number}. Here is the issue description:\n\n**Number:** ${config.issue.number}\n**Title:** ${config.issue.title}\n**Author:** ${config.issue.user.login}\n**Labels:** ${config.issue.labels.map(label => label.name).join(', ')}\n**Message:** ${config.issue.body}\n\nCurrent file map of the repository:\n${config.files.map(file => file).join('\n')}\nYou can only respond with code blocks with JSON format. You have to provide the correct information to users.`
                     },
                     ...[message]
                 ]
@@ -114,6 +114,11 @@ async function validJSON(message) {
     execSync(`git clone https://${config.personalAccessToken}@github.com/${config.repository.owner.login}/${config.repository.name} && cd ./${config.repository.name} && git config user.email "${config.user.email}" && git config user.name "${config.user.login}" && git checkout -b issue-${config.issue.number}`);
 
     config.files = execSync(`cd ${config.repository.name} && git ls-files`).toString().split('\n').filter(file => file);
+    config.issue = (await gitHub.rest.issues.get({
+        owner: config.repository.owner.login,
+        repo: config.repository.name,
+        issue_number: config.issue.url.split('/').pop()
+    })).data;
 
     let createFiles = await validJSON({
         role: 'user',

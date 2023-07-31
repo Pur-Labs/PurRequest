@@ -7,7 +7,7 @@ let config = {
     githubToken: process.env.GITHUB_TOKEN,
     personalAccessToken: process.env.INPUT_PERSONAL_ACCESS_TOKEN,
     purgptApiKey: process.env.INPUT_PURGPT_API_KEY,
-    issue: process.env.INPUT_ISSUE,
+    issue: process.env.INPUT_ISSUE ? JSON.parse(process.env.INPUT_ISSUE) : undefined,
     repository: process.env.INPUT_REPOSITORY,
     model: process.env.INPUT_MODEL ?? 'gpt-3.5-turbo-16k'
 };

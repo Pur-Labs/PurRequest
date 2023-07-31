@@ -7,7 +7,8 @@ permissions:
 
 on:
   issues:
-    types: [opened]
+    types:
+      - opened
 
 jobs:
   create_pr:

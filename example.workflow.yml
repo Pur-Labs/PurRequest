@@ -1,0 +1,30 @@
+name: PurRequest
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  create_pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+      - run: npm install
+        uses: PurGPT/PurRequest@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          personal_access_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          purgpt_api_key: ${{ secrets.PURGPT_API_KEY }}
+          issue: ${{ github.event.issue }}
+          repository: ${{ github.repository }}
+          model: gpt-3.5-turbo-16k

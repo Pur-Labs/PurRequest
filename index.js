@@ -56,6 +56,8 @@ async function purgpt(message) {
     let response;
     let tries = 0;
 
+    console.log('Asking', message);
+
     while (!response && tries < 3) {
         try {
             response = (await axios.post('https://beta.purgpt.xyz/openai/chat/completions', {
@@ -83,6 +85,8 @@ async function purgpt(message) {
     };
 
     if (!response) throw new Error('Failed to fetch from PurGPT.');
+
+    console.log('Response', response);
 
     return response;
 };

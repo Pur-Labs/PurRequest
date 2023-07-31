@@ -95,7 +95,7 @@ async function validJSON(message) {
     while (!json) {
         try {
             response = await purgpt(message);
-            response = response.choices[0].content;
+            response = response.choices[0].message.content;
 
             console.log(response, code(response));
 

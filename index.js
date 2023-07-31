@@ -149,7 +149,7 @@ async function validJSON(message) {
         writeFileSync(`./${config.repository.name}/${createFile.path}`, createFile.content);
     };
 
-    execSync(`cd ./${config.repository.name} && git add . && git commit -m "Issue ${config.issue.number}" && git push`);
+    execSync(`cd ./${config.repository.name} && git add . && git commit -m "Issue ${config.issue.number}" && git push --set-upstream origin issue-${config.issue.number}`);
 
     await gitHub.rest.pulls.create({
         owner: config.repository.owner,

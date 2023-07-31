@@ -111,7 +111,7 @@ async function validJSON(message) {
         repo: config.repository.split('/')[1]
     })).data;
 
-    execSync(`git clone https://${config.personalAccessToken}@github.com/${config.repository.owner}/${config.repository.name} && cd ./${config.repository.name} && git config user.email "${config.user.email}" && git config user.name "${config.user.loging}" && git checkout -b issue-${config.issue.number}`);
+    execSync(`git clone https://${config.personalAccessToken}@github.com/${config.repository.owner}/${config.repository.name} && cd ./${config.repository.name} && git config user.email "${config.user.email}" && git config user.name "${config.user.login}" && git checkout -b issue-${config.issue.number}`);
 
     config.files = execSync(`cd ${config.repository.name} && git ls-files`).toString().split('\n').filter(file => file);
 

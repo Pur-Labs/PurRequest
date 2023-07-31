@@ -117,7 +117,7 @@ async function validJSON(message) {
     config.issue = (await gitHub.rest.issues.get({
         owner: config.repository.owner.login,
         repo: config.repository.name,
-        issue_number: config.issue.url.split('/').pop()
+        issue_number: config.issue.html_url.split('/').pop()
     })).data;
 
     let createFiles = await validJSON({

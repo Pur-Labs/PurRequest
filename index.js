@@ -109,9 +109,9 @@ async function validJSON(message) {
     config.repository = (await gitHub.rest.repos.get({
         owner: config.repository.split('/')[0],
         repo: config.repository.split('/')[1]
-    })).data;
+    })).data.owner;
 
-    execSync(`git clone https://${config.personalAccessToken}@github.com/${config.repository.owner}/${config.repository.name} && cd ./${config.repository.name} && git config user.email "${config.user.email}" && git config user.name "${config.user.login}" && git checkout -b issue-${config.issue.number}`);
+    execSync(`git clone https://${config.personalAccessToken}@github.com/${config.repository.owner.login}/${config.repository.name} && cd ./${config.repository.name} && git config user.email "${config.user.email}" && git config user.name "${config.user.login}" && git checkout -b issue-${config.issue.number}`);
 
     config.files = execSync(`cd ${config.repository.name} && git ls-files`).toString().split('\n').filter(file => file);
 

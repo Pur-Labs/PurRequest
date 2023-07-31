@@ -1,0 +1,5 @@
+name: 'PurRequest'
+description: 'PurRequest is a powerful and efficient pull request manager that is designed to make your life as a developer easier and more productive. With its advanced AI-powered capabilities, PurRequest can automatically manage all of your pull requests, ensuring that they are handled quickly and efficiently.'
+runs:
+  using: 'node16'
+  main: 'index.js'

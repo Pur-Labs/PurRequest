@@ -97,6 +97,8 @@ async function validJSON(message) {
             response = await purgpt(message);
             response = response.choices[0].content;
 
+            console.log(response, code(response));
+
             if (code(response)) json = JSON.parse(code(response));
         } catch (error) {
             console.error('Error occured while checking JSON.', error, error?.response?.data);
